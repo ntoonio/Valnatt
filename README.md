@@ -35,8 +35,7 @@ Den här delen visar vilka olika kombinationer av data som ska visas.
 	00L / nation / län / kod == 01 / giltiga
 
 #### Hur *län* röstade i riksdags-valet
-	00R / NATION / LÄN / KOD == <LÄNSKOD> / GILTIGA
-	00R / nation / län / kod == 01 / giltiga
+	00R / NATION / LÄN / KOD == <LÄNSKOD> / GILTIGA / KRETS_RIKSDAG
 
 ### Nation
 #### Hur *nationen* röstade i riksdags-valet
