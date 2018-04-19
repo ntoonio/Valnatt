@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import json
+import io
 import xmltodict
 
 """
@@ -18,8 +18,6 @@ electionType
 > "L" - Landstring
 > "R" - Riksdag
 """
-
-import io
 
 def getVotes(electionType, region):
 	if region["typ"] == "kommunkrets":
@@ -54,6 +52,7 @@ def readFile(fileCode):
 	return obj
 
 if __name__ == "__main__":
+	import json
+
 	votes = getVotes("R", {"typ": "kommunkrets", "län": "01", "kommun": "17", "krets": "01"})
-	print json.dumps(votes, ensure_ascii=False, indent=4)
-	
+	print(json.dumps(votes, ensure_ascii=False, indent=4))
