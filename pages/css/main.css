@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Libre+Baskerville|Poppins");
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+* {
+	font-family: "Poppins", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-left: 1vw;
+}
+
+#stats {
+	padding: 1vw;
+	height: 50vh;
+	background-color: lightgray;
+	vertical-align: bottom;
+	position: relative;
+
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+
+.pillar {
+	display: inline-block;
+	background-color: red;
+	margin: 0 0.5vw;
+}

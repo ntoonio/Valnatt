@@ -7,6 +7,7 @@ import xmltodict
 """
 regionType
 ----------
+> "kommundistrikt"
 > "kommunkrets"
 > "kommun"
 > "län"
@@ -20,26 +21,44 @@ electionType
 """
 
 def getVotes(electionType, region):
-	if region["typ"] == "kommunkrets":
-		data = readFile(region["län"] + region["kommun"] + electionType)
+	if len(region) > 6:
+		data = readFile(region[:4] + electionType)
+
+		def _getDistrikt(dist, region):
+			for d in dist:
+				if isinstance(d, str):
+					return dist["GILTIGA"]
+				elif isinstance(k, dict):
+					if d["KOD"] == region:
+						return d["GILTIGA"]
+
+		for k in data["VAL"]["KOMMUN"]["KRETS_KOMMUN"]:
+			if isinstance(k, str):
+				dist = data["VAL"]["KOMMUN"]["KRETS_KOMMUN"]["VALDISTRIKT"]
+				return _getDistrikt(dist, region)
+			elif isinstance(k, dict):
+				return _getDistrikt(k["VALDISTRIKT"], region)
+
+	elif len(region) == 6:
+		data = readFile(region[:4] + electionType)
 
 		for d in data["VAL"]["KOMMUN"]["KRETS_KOMMUN"]:
-			if d["KOD"] == region["län"] + region["kommun"] + region["krets"]:
+			if d["KOD"] == region:
 				return d["GILTIGA"]
 
-	elif region["typ"] == "kommun":
-		data = readFile(region["län"] + region["kommun"] + electionType)
+	elif len(region) == 4:
+		data = readFile(region[:4] + electionType)
 
 		return data["VAL"]["KOMMUN"]["GILTIGA"]
 
-	elif region["typ"] == "län":
+	elif len(region) == 2:
 		data = readFile("00" + electionType)
 
 		for d in data["VAL"]["NATION"]["LÄN"]:
-			if d["KOD"] == region["län"] + region["kommun"] + region["krets"]:
+			if d["KOD"] == region:
 				return d["GILTIGA"]
 
-	elif region["typ"] == "nation":
+	elif region == "00":
 		data = readFile("00R")
 
 		return data["VAL"]["NATION"]["GILTIGA"]
@@ -54,5 +73,5 @@ def readFile(fileCode):
 if __name__ == "__main__":
 	import json
 
-	votes = getVotes("R", {"typ": "kommunkrets", "län": "01", "kommun": "17", "krets": "01"})
+	votes = getVotes("R", "01170211")
 	print(json.dumps(votes, ensure_ascii=False, indent=4))
