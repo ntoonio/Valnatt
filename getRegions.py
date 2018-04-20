@@ -8,34 +8,42 @@ def readFile(fileCode):
 
 	return obj
 
-def getLan():
+def getRiksdagskrets():
 	obj = readFile("00R")
 	resp = []
 	for l in obj["VAL"]["NATION"]["LÄN"]:
-		resp.append({"NAMN": l["NAMN"], "KOD": l["KOD"]})
-	
+		for k in l["KRETS_RIKSDAG"]:
+			if isinstance(k, str):
+				resp.append({"NAMN": l["KRETS_RIKSDAG"]["NAMN"], "KOD": l["KRETS_RIKSDAG"]["KOD"][-2:]})
+				break
+			elif isinstance(k, dict):
+				resp.append({"NAMN": k["NAMN"], "KOD": k["KOD"][-2:]})
+
 	return resp
 
-def getKommuner(lan):
+def getKommuner(region):
 	obj = readFile("00R")
 	resp = []
 	for l in obj["VAL"]["NATION"]["LÄN"]:
-		if l["KOD"] == lan:
-			for kr in l["KRETS_RIKSDAG"]:
-				if isinstance(kr, str):
+		for kr in l["KRETS_RIKSDAG"]:
+			if isinstance(kr, str):
+				if l["KRETS_RIKSDAG"]["KOD"][-2:] == region:
 					for k in l["KRETS_RIKSDAG"]["KOMMUN"]:
 						resp.append({"NAMN": k["NAMN"], "KOD": k["KOD"]})
-					break
+						break
 
-				elif isinstance(kr["KOMMUN"], list):
+			elif isinstance(kr["KOMMUN"], list):
+				if kr["KOD"][-2:] == region:
 					for k in kr["KOMMUN"]:
 						resp.append({"NAMN": k["NAMN"], "KOD": k["KOD"]})
-					break
 
 	return resp
 
-def getKommunKretsar(code):
-	obj = readFile(code + "K")
+def getKommunKretsar(region):
+	if len(region) == 2:
+		region = "OO"
+
+	obj = readFile(region + "K")
 
 	resp = []
 	
@@ -81,8 +89,8 @@ def getKommunDistrikt(code):
 if __name__ == "__main__":
 	import json
 
-	#regions = getLan()
-	#regions = getKommuner("05")
+	#regions = getRiksdagskrets()
+	#regions = getKommuner("01")
 	#regions = getKommunKretsar("0117")
 	regions = getKommunDistrikt("011701")
 	print(json.dumps(regions, ensure_ascii=False, indent=4))

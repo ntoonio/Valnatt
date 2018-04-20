@@ -1,7 +1,15 @@
-console.log("Heksan")
+function getParameterByName(name, url) {
+	if (!url) url = window.location.href;
+	name = name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		results = regex.exec(url);
+	if (!results) return null;
+	if (!results[2]) return "";
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
-const election = "R"
-const region = "01170211"
+const election = getParameterByName("election")
+const region = getParameterByName("region")
 
 var parties = []
 
@@ -9,9 +17,11 @@ $.getJSON("/getVotes?val=" + election + "&region=" + region, function (data) {
 	
 	var parties = []
 
-	for (var party in data) {
-		parties.push(data[party]);
+	for (var party in data["RÖSTER"]) {
+		parties.push(data["RÖSTER"][party]);
 	}
+
+	document.getElementById("region").innerText = data["NAMN"]
 
 	const mostVotes = parties.slice().sort(function (a, b) {
 		if (parseInt(a["RÖSTER"]) > parseInt(b["RÖSTER"])) {return -1}

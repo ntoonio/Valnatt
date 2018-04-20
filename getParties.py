@@ -2,6 +2,9 @@ import io
 import xmltodict
 
 def getParties(election, region):
+	if len(region) < 4:
+		region = "00"
+		
 	obj = readFile(region[:4] + election)
 	resp = []
 
