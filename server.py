@@ -9,7 +9,7 @@ app = Flask(__name__)
 def indexRequest():
 	return "<h1>Hej!</h1>"
 
-@app.route("/file/<path:reqPath>")
+@app.route("/<path:reqPath>")
 def jsRequest(reqPath):
 	print("Hej")
 	response = send_from_directory("pages/", reqPath)
