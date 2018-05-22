@@ -1,43 +1,19 @@
 # Valnatt
+This is a tool to monitor the Swedish election on the election night.
 
-## "Kombinationer"
-Den här delen visar vilka olika kombinationer av data som ska visas.
+Valnatt (_Swedish for election night_) pulls data from the Swedish Election Authority and dispalys it in a graph. You can view the preliminary results per region and election (parlament, county, and municipality).
 
-### Kommun krets
-#### Hur *kommunkrets* i kommunvalet
-	<LÄNSKOD><KOMMUNKOD>K / KOMMUN / KRETS_KOMMUN / KOD == <LÄNSKOD><KOMMUNKOD><KRETS_KOD> / GILTIGA
-	0117K / kommun / krets_kommun / kod == 011701 / giltiga
+## Election types
+- *R*: Riksdag (Parlament)
+- *L*: Länsting (County)
+- *K*: Kommun (municipality)
 
-#### Hur *kommunkrets* i landstingsvalet
-	<LÄNSKOD><KOMMUNKOD>L / KOMMUN / KRETS_KOMMUN / KOD == <LÄNSKOD><KOMMUNKOD><KRETS_KOD> / GILTIGA
-	0117L / kommun / krets_kommun / kod == 011701 / giltiga
+## Examples
+### How **Sweden** votes for the **parlament**
+http://127.0.0.1:5000/valnatt/?region=0&election=R
 
-#### Hur *kommunkrets* röstade i riksdagsvalet
-	<LÄNSKOD><KOMMUNKOD>R / KOMMUN / KRETS_KOMMUN / KOD == <LÄNSKOD><KOMMUNKOD><KRETS_KOD> / GILTIGA
-	0117R / kommun / krets_kommun / kod == 011701 / giltiga
+### How **Österåker** (municipality) votes for the **parlament**
+http://127.0.0.1:5000/valnatt/?region=0117&election=R
 
-### Kommun
-#### Hur *kommun* röstade i kommun-valet
-	<LÄNSKOD><KOMMUNKOD>K / KOMMUN / GILTIGA
-	0117K / kommun / giltiga
-
-#### Hur *kommun* röstade i landstings-valet
-	<LÄNSKOD><KOMMUNKOD>L / KOMMUN / GILTIGA
-	0117L / kommun / giltiga
-
-#### Hur *kommun* röstade i riksdags-valet
-	<LÄNSKOD><KOMMUNKOD>R / KOMMUN / GILTIGA
-	0117R / kommun / giltiga
-
-### Län
-#### Hur *län* röstade i landstings-valet
-	00L / NATION / LÄN / KOD == <LÄNSKOD> / GILTIGA
-	00L / nation / län / kod == 01 / giltiga
-
-#### Hur *län* röstade i riksdags-valet
-	00R / NATION / LÄN / KOD == <LÄNSKOD> / GILTIGA / KRETS_RIKSDAG
-
-### Nation
-#### Hur *nationen* röstade i riksdags-valet
-	00R / NATION / GILTIGA
-	00R / nation / giltiga
+### How **Österåker** (municipality) votes for the **town council**
+http://127.0.0.1:5000/valnatt/?region=0117&election=K

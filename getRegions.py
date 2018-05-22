@@ -90,7 +90,7 @@ if __name__ == "__main__":
 	import json
 
 	#regions = getRiksdagskrets()
-	#regions = getKommuner("01")
+	regions = getKommuner("02")
 	#regions = getKommunKretsar("0117")
-	regions = getKommunDistrikt("011701")
+	#regions = getKommunDistrikt("011701")
 	print(json.dumps(regions, ensure_ascii=False, indent=4))
