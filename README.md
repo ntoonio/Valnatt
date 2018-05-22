@@ -8,6 +8,12 @@ Valnatt (_Swedish for election night_) pulls data from the Swedish Election Auth
 - *L*: Länsting (County)
 - *K*: Kommun (municipality)
 
+## Region types
+- riksdagskrets
+- kommun
+- kommunKrets
+- kommunDistrikt
+
 ## Examples
 ### How **Sweden** votes for the **parlament**
 http://127.0.0.1:5000/valnatt/?region=0&election=R
