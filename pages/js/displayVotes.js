@@ -13,8 +13,8 @@ const region = getParameterByName("region")
 
 var parties = []
 
-$.getJSON("/getVotes?val=" + election + "&region=" + region, function (data) {
-	
+$.getJSON("/getVotes?election=" + election + "&region=" + region, function (data) {
+	console.log(data)
 	var parties = []
 
 	for (var party in data["RÖSTER"]) {
@@ -29,7 +29,7 @@ $.getJSON("/getVotes?val=" + election + "&region=" + region, function (data) {
 		return 0 
 	})[0]["RÖSTER"]
 
-	$.getJSON("/getParties?val=" + election + "&region=" + region, function (data) {
+	$.getJSON("/getParties?election=" + election + "&region=" + region, function (data) {
 		const width = ((100 - parties.length - 2) / parties.length) + "vw"
 		
 		parties.forEach(function (party) {

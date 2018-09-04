@@ -21,7 +21,7 @@ def jsRequest(reqPath):
 
 @app.route("/getVotes/")
 def getVotesRequest():
-	electionType = request.args.get("val")
+	electionType = request.args.get("election")
 	region = request.args.get("region")
 
 	response = app.response_class(

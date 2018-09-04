@@ -48,7 +48,7 @@ def getVotes(electionType, region):
 
 	elif len(region) == 4:
 		data = readFile(region[:4] + electionType)
-
+		
 		return {"NAMN": data["VAL"]["KOMMUN"]["NAMN"], "RÖSTER": data["VAL"]["KOMMUN"]["GILTIGA"]}
 
 	elif len(region) == 2 and region != "00":
